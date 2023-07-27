@@ -1,0 +1,31 @@
+.menu-card{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.menu-card>* {
+    flex: 0 0 30%;
+}
+.card{
+    text-align: center;
+    width:300px;
+    height:510px;
+    border: 1px solid #95A0A7;
+    border-radius: 10px;
+    margin: 10px;
+    position: relative;
+    padding-top: 5px;
+    
+}
+.card-details{
+    margin-top: 20px;
+}
+.add-to-cart{
+    background-color: #FFE0B3;
+    width:100%;
+    padding: 10px;
+    border: #FFE0B3;
+    border-radius: 10px;
+    cursor: pointer;
+   
+}
