@@ -16,11 +16,32 @@ interface Pokedex {
   stock:        number;
 }
 
+interface objType{
+  [index:string]:number;
+}
+
 export default function Shop() {
 
   const [cartData, setCartData] = useState<Pokedex[]>([]);
 
   function getProductData(data:Pokedex){
+
+    const storeValue = localStorage.getItem("cartStoreData");
+    if(storeValue){
+      const objdata:objType = JSON.parse(storeValue);
+      if(Object.keys(objdata).includes(data.id)){
+        objdata[data.id] += 1;
+      }else{
+        objdata[data.id] = 1;
+      }
+      
+      localStorage.setItem("cartStoreData",JSON.stringify(objdata))
+    }else{
+      const obj:objType = {};
+      obj[data.id] = 1;
+      localStorage.setItem("cartStoreData",JSON.stringify(obj))
+    }
+    
     setCartData([...cartData,data]);
   }
   return (
@@ -31,8 +52,6 @@ export default function Shop() {
       <div style={{width:"20%"}}>
         <Cart cartData={cartData}/>
       </div>
-      
-      
     </div>
   )
 }

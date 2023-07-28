@@ -20,19 +20,23 @@ interface Pokedex {
 
 export default function Menu({getProductData}:{getProductData:any}) {
 
-
     const [products, setProducts] = useState<Pokedex[]>([]);
+
+    function setData(data:Pokedex[]){
+        setProducts(data);
+        localStorage.setItem("fullProductDetails", JSON.stringify(data));
+    }
 
     // Fetch Product from API
     useEffect(()=>{
         fetch('https://raw.githubusercontent.com/ProgrammingHero1/ema-john-resources/main/fakeData/products.json')
         .then(res=>res.json())
-        .then(data=>setProducts(data));
+        .then(data=>setData(data));
 
     },[])
 
-    function productData(data:Pokedex){
-        getProductData(data);
+    function productData(singleProductData:Pokedex){
+        getProductData(singleProductData);
     }
 
   return (
@@ -41,7 +45,10 @@ export default function Menu({getProductData}:{getProductData:any}) {
             products.map((product)=>{
                 return(
                     <div className="card" key={product.id}>
-                        <img style={{ borderRadius:"10px"}} src={product.img} alt="Card Image" width="300px" height="300px"/>
+                        <div style={{width:"300px", height:"300px", margin:"0 auto"}}>
+                            <img style={{ borderRadius:"10px"}} src={product.img} alt="Product Image Not Found" width="300px" height="300px"/>
+                        </div>
+                        
                         <div className="card-details">
                             <h4>{product.name}</h4><br/>
                             <p>Price : $ {product.price}</p><br/><br/>
